@@ -1,19 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
-from rest_framework import routers, permissions
-from produtos.views import ProdutoViewSet
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework import permissions
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-# Configuração do router
-router = routers.DefaultRouter()
-router.register(r'produtos', ProdutoViewSet)
-
-# Configuração da documentação (Swagger)
 schema_view = get_schema_view(
     openapi.Info(
         title="API da Loja",
@@ -25,7 +16,6 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-# Adiciona o esquema de autenticação Bearer ao Swagger
 schema_view.security_definitions = {
     'Bearer': {
         'type': 'apiKey',
@@ -35,13 +25,11 @@ schema_view.security_definitions = {
     }
 }
 
-# Rotas do projeto
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Rotas principais
-    path('api/', include(router.urls)),
-    path('api/produtos/', include('produtos.urls')),
+    path('api/', include('produtos.urls')),
     path('api/usuarios/', include('usuarios.urls')),
 
     # JWT Auth
