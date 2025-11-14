@@ -156,3 +156,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Frontend React
     "http://127.0.0.1:3000",
 ]
+
+# Configurações de arquivos de mídia (uploads e imagens)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
